@@ -25,10 +25,6 @@ public class HospitalController {
         return servico.cadastrarHospital(h);
     }
 
-    @GetMapping("/api/hospital/{nome}")
-    public ResponseEntity<?> obterIdPorNome(@PathVariable String nome){
-        return servico.obterHospitalPorNome(nome);
-    }
     
     @GetMapping("/api/hospital")
     public ResponseEntity<?> listarHospitais(){

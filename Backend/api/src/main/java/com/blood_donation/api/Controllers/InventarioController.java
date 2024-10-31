@@ -28,7 +28,7 @@ public class InventarioController {
     public ResponseEntity<?> obterInventarioPorId(@PathVariable int id){
         return service.listarInventarioPorId(id);
     }
-    @GetMapping("/api/inventario/{nomeH}")
+    @GetMapping("/api/inventario/hospital/{nomeH}")
     public ResponseEntity<?> obterInventarioPorNomeHospital(@PathVariable String nomeH){
         return service.listarInventarioPorNome(nomeH);
     }

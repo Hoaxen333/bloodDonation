@@ -19,6 +19,34 @@ public class Inventario {
     private int AB_menos;
     private int O_mais;
     private int O_menos;
+
+    public void prePersist() {
+        if (A_mais == 0) {
+            A_mais = 0; 
+        }
+        if (A_menos == 0) {
+            A_menos = 0; 
+        }
+        if (AB_mais == 0) {
+            AB_mais = 0; 
+        }
+        if (AB_menos == 0) {
+            AB_menos = 0; 
+        }
+        if (B_mais == 0) {
+            B_mais = 0; 
+        }
+        if (B_menos == 0) {
+            B_menos = 0; 
+        }
+        if (O_mais == 0) {
+            O_mais = 0; 
+        }
+        if (O_menos == 0) {
+            O_menos = 0; 
+        }
+    }
+
     @OneToOne
     @JoinColumn(name = "hospital_id")
     private Hospital hospital;

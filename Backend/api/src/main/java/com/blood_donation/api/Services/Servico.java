@@ -350,25 +350,23 @@ public class Servico {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Inventario i = inventRepository.findByNomeHospitalD(doa.getHospital().getNome());
+        Inventario i = inventRepository.findByNomeHospitalD(doa.getHospital().getId());
 
-        String tipoSang = d.getTipoSanguineo();
-
-        if(tipoSang.equals("A_mais")){
+        if(d.getTipoSanguineo().equals("A+")){
             i.setA_mais(i.getA_mais()+1);
-        }else if(tipoSang.equals("A_menos")){
+        }else if(d.getTipoSanguineo().equals("A-")){
             i.setA_menos(i.getA_menos()+1);
-        }else if(tipoSang.equals("AB_mais")){
+        }else if(d.getTipoSanguineo().equals("AB+")){
             i.setAB_mais(i.getAB_mais()+1);
-        }else if(tipoSang.equals("AB_menos")){
+        }else if(d.getTipoSanguineo().equals("AB-")){
             i.setAB_menos(i.getAB_menos()+1);
-        }else if(tipoSang.equals("B_mais")){
+        }else if(d.getTipoSanguineo().equals("B+")){
             i.setB_mais(i.getB_mais()+1);
-        }else if(tipoSang.equals("B_menos")){
+        }else if(d.getTipoSanguineo().equals("B-")){
             i.setB_menos(i.getB_menos()+1);
-        }else if(tipoSang.equals("O_mais")){
+        }else if(d.getTipoSanguineo().equals("O+")){
             i.setO_mais(i.getO_mais()+1);
-        }else{
+        }else if(d.getTipoSanguineo().equals("O+")){
             i.setO_menos(i.getO_menos()+1);
         }
         inventRepository.save(i);
