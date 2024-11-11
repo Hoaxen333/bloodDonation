@@ -3,6 +3,7 @@ package com.blood_donation.api.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import com.blood_donation.api.Models.Hospital;
 import com.blood_donation.api.Services.Servico;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class HospitalController {
 
     @Autowired

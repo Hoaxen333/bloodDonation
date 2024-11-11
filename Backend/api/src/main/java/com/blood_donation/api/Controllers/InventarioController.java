@@ -2,6 +2,8 @@ package com.blood_donation.api.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +15,7 @@ import com.blood_donation.api.Models.Inventario;
 import com.blood_donation.api.Services.Servico;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class InventarioController {
 
     @Autowired Servico service; 
@@ -67,5 +70,9 @@ public class InventarioController {
     @GetMapping("/api/inventario/0_menos")
     public ResponseEntity<?> obterO_menos(){
         return service.listarPorO_menos();
+    }
+    @DeleteMapping("/api/inventario/{id}")
+    public ResponseEntity<?> deletarInventario(@PathVariable int id){
+        return service.deletarInventario(id);
     }
 }

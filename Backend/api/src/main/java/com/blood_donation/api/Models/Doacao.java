@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 public class Doacao {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private Date dataHoraDoacao;
 
     @ManyToOne

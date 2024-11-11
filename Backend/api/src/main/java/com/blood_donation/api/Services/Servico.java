@@ -14,6 +14,7 @@ import com.blood_donation.api.Models.Hospital;
 import com.blood_donation.api.Models.Inventario;
 import com.blood_donation.api.Models.Message;
 import com.blood_donation.api.Models.Responsavel;
+import com.blood_donation.api.Models.ResponsavelDTO;
 import com.blood_donation.api.Repositorio.DoacaoRepository;
 import com.blood_donation.api.Repositorio.DoadorRepository;
 import com.blood_donation.api.Repositorio.HospitalRepository;
@@ -50,7 +51,7 @@ public class Servico {
             mensagem.setMensagem("O nome precisa ser preenchido");
             return new ResponseEntity<>(mensagem,HttpStatus.BAD_REQUEST);
         }else if(obj.getPeso() < 50){
-            mensagem.setMensagem("Insira um valor válido");
+            mensagem.setMensagem("Insira um valor válido > 50");
             return new ResponseEntity<>(mensagem,HttpStatus.BAD_REQUEST);
         }else if(obj.getBi().equals("")){
             mensagem.setMensagem("O BI precisa ser preenchido");
@@ -61,8 +62,7 @@ public class Servico {
             return new ResponseEntity<>(mensagem,HttpStatus.BAD_REQUEST);
         }else{
             donateRepo.save(obj);
-            mensagem.setMensagem("Doador adicionado com sucesso!");
-            return new ResponseEntity<>(mensagem,HttpStatus.CREATED);
+            return new ResponseEntity<>(donateRepo.save(obj),HttpStatus.CREATED);
         }
     }
 
@@ -110,6 +110,16 @@ public class Servico {
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public ResponseEntity<?> editarDoador(Doador d){
         if(d != null){
+            return new ResponseEntity(donateRepo.save(d),HttpStatus.OK);
+        }
+        mensagem.setMensagem("Insira um Doador!");
+        return new ResponseEntity<>(mensagem,HttpStatus.BAD_REQUEST);
+    }
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public ResponseEntity<?> editarDoadorDisp(int id){
+        Doador d = donateRepo.findById(id);
+        if(d != null){
+            d.setDisponibilidade(!d.isDisponibilidade());
             return new ResponseEntity(donateRepo.save(d),HttpStatus.OK);
         }
         mensagem.setMensagem("Insira um Doador!");
@@ -230,6 +240,18 @@ public class Servico {
         }
         return new ResponseEntity<>(r,HttpStatus.OK);
     }
+    public ResponseEntity<?> login(ResponsavelDTO rDto){
+        if(rDto.getUsername() == "" || rDto.getPassword() == ""){
+            mensagem.setMensagem("Preencha corretamente os campos!");
+            return new ResponseEntity<>(mensagem,HttpStatus.BAD_REQUEST);
+        }
+        Responsavel responsa = responsaRepo.login(rDto.getUsername(), rDto.getPassword());
+        if(responsa == null){
+            mensagem.setMensagem("O username ou password estao incorrectos!");
+            return new ResponseEntity<>(mensagem,HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(responsa,HttpStatus.OK);
+    } 
 
     public ResponseEntity<?> listarResponsaveisPorNome(String nome){
         return new ResponseEntity<>(responsaRepo.findByNomeContaining(nome),HttpStatus.OK);
@@ -346,9 +368,10 @@ public class Servico {
         Date date = new Date(System.currentTimeMillis());
         doa.setDataHoraDoacao(date);
 
-        if(d==null || h==null){
+        if(d==null || h==null || !d.isDisponibilidade()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        
 
         Inventario i = inventRepository.findByNomeHospitalD(doa.getHospital().getId());
 
@@ -366,7 +389,7 @@ public class Servico {
             i.setB_menos(i.getB_menos()+1);
         }else if(d.getTipoSanguineo().equals("O+")){
             i.setO_mais(i.getO_mais()+1);
-        }else if(d.getTipoSanguineo().equals("O+")){
+        }else if(d.getTipoSanguineo().equals("O-")){
             i.setO_menos(i.getO_menos()+1);
         }
         inventRepository.save(i);

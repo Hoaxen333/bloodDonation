@@ -2,6 +2,7 @@ package com.blood_donation.api.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import com.blood_donation.api.Models.Doador;
 import com.blood_donation.api.Services.Servico;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class DoadorController {
 
     @Autowired
@@ -53,8 +55,12 @@ public class DoadorController {
     public ResponseEntity<?> editarDoador(@RequestBody Doador d){
         return service.editarDoador(d);
     }
+    @PutMapping("/api/doador/d")
+    public ResponseEntity<?> editarDoadorDisp(@RequestBody int id){
+        return service.editarDoadorDisp(id);
+    }
 
-    @DeleteMapping("/api/{id}")
+    @DeleteMapping("/api/doador/{id}")
     public ResponseEntity<?> removerDoador(@PathVariable int id){
         return service.deletarDoador(id);
     }

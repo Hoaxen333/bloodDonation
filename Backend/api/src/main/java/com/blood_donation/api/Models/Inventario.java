@@ -47,8 +47,8 @@ public class Inventario {
         }
     }
 
-    @OneToOne
-    @JoinColumn(name = "hospital_id")
+    @OneToOne(optional = false)
+    @JoinColumn(name = "hospital_id",unique = true)
     private Hospital hospital;
 
 
