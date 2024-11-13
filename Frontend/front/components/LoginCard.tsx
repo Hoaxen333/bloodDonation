@@ -24,6 +24,7 @@ const formSchema = z.object({
     }).max(30),
     password: z.string().min(5).max(20),
 })
+ 
 
 export const LoginCard = () => {
     const form = useForm<z.infer<typeof formSchema>>({
@@ -56,6 +57,7 @@ export const LoginCard = () => {
               title: "Sucesso!",
               description: "Login efectuado com sucesso!",
             })
+            window.location.href = '/doacao';
           }
         })
       }

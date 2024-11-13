@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blood_donation.api.Models.Responsavel;
@@ -29,5 +30,10 @@ public class ReponsavelController {
     @GetMapping("/api/responsavel")
     public ResponseEntity<?> listarResponsaveis(){
         return servico.listarResponsaveis();
+    }
+    @GetMapping("api/responsavel/verificar-username")
+    public ResponseEntity<Boolean> verificarUsername(@RequestParam String username) {
+        boolean exists = servico.checkUsernameExists(username);
+        return ResponseEntity.ok(exists);
     }
 }

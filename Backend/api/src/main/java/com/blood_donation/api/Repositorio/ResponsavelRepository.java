@@ -19,10 +19,15 @@ public interface ResponsavelRepository extends CrudRepository<Responsavel,Intege
     @Query(value="SELECT id FROM Responsavel WHERE username = :username")
     Integer findIdByUsername(String username);
 
+    
+
     @Query("SELECT r FROM Responsavel r WHERE r.username = :username AND r.password = :password")
     Responsavel login(@Param("username") String username, @Param("password") String password);
 
 
     List<Responsavel> findByNomeContaining(String nome);
     List<Responsavel> findByApelidoContaining(String apelido);
+    default boolean usernameExists(String username) {
+        return findIdByUsername(username) != null;
+    }
 }

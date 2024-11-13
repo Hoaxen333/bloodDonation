@@ -16,7 +16,7 @@ import {
   import { SquarePen,Trash,Check,Ban, SquarePlus, Icon} from 'lucide-react';
 import { Input } from '@/components/ui/input'
 import { toast } from '@/hooks/use-toast'
-import AddInventario from '@/components/AddInventario'
+import AddInventario from '@/components/AddResponsavel'
 
 
 interface Hospital{

@@ -262,6 +262,9 @@ public class Servico {
     public ResponseEntity<?> listarResponsaveisPorApelido(String apelido){
         return new ResponseEntity<>(responsaRepo.findByApelidoContaining(apelido),HttpStatus.OK);
     } 
+    public boolean checkUsernameExists(String username){
+        return responsaRepo.usernameExists(username);
+    }
 
     public ResponseEntity<?>  editarResponsavel(Responsavel r){
         if(r != null){

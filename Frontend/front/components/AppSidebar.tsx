@@ -36,7 +36,7 @@ const items = [
     },
     {
       title: "Responsáveis",
-      url: "#",
+      url: "/responsavel",
       icon: Settings,
     },
   ]
